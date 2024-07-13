@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     Command,
     CommandDialog,
@@ -15,22 +15,26 @@ import {
 function CommandBarComponent() {
     const [showCommandBar, setCommandBar] = useState<boolean>(false);
 
-  function handleKeyDown(event: KeyboardEvent) {
-    if (event.ctrlKey && event.key === 'k') {
-      event.preventDefault();
-      setCommandBar(true);
-     
+  
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.ctrlKey && event.key === 'k') {
+        event.preventDefault();
+        setCommandBar(true);
+       
+      }
     }
-  }
-  function handleCommandBar(event:MouseEvent) {
-    const target = event.target as HTMLElement;
-    if (event.target instanceof HTMLElement && !event.target.closest('.command-modal')) {
-      setCommandBar(false);
+    function handleCommandBar(event:MouseEvent) {
+      const target = event.target as HTMLElement;
+      if (event.target instanceof HTMLElement && !event.target.closest('.command-modal')) {
+        setCommandBar(false);
+      }
     }
-  }
-  document.addEventListener("mousedown",handleCommandBar)
+    document.addEventListener("mousedown",handleCommandBar)
 
-  document.addEventListener("keydown",handleKeyDown)
+       document.addEventListener("keydown",handleKeyDown) 
+  },[])
+  
   return (
     <>
           
